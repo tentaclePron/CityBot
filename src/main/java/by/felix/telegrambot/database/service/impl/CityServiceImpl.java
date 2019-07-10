@@ -20,12 +20,16 @@ public class CityServiceImpl implements CityService {
 
     @Override
     public void delete(long id) {
-    repository.deleteById(id);
+        repository.deleteById(id);
     }
 
     @Override
     public City getByName(String name) {
         return repository.findByName(name);
+    }
+
+    public City getById(long id){
+        return repository.findById(id).orElse(new City());
     }
 
     @Override

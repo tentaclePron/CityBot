@@ -9,6 +9,7 @@ public interface CityService {
     City addCity(City city);
     void delete(long id);
     City getByName(String name);
+    City getById(long id);
     City editCity(City city);
     List<City> getAll();
 
