@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import java.util.Collection;
 
 @Controller
+@RequestMapping(value = "/")
 public class MainController {
 
     @Autowired

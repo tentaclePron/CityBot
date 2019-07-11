@@ -1,24 +1,19 @@
 package by.felix.telegrambot.rest.config;
 
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
-import org.springframework.web.servlet.view.JstlView;
-import org.springframework.web.servlet.view.UrlBasedViewResolver;
+import org.springframework.web.servlet.config.annotation.ViewResolverRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+
 
 @Configuration
 @EnableWebMvc
-@ComponentScan("by.felix.telegrambot")
-public class WebAppConfig {
+@ComponentScan(basePackages = "by.felix.telegrambot")
+public class WebAppConfig implements WebMvcConfigurer {
 
-    @Bean
-    public UrlBasedViewResolver setupViewResolver(){
-        UrlBasedViewResolver resolver = new UrlBasedViewResolver();
-        resolver.setPrefix("/pages/");
-        resolver.setSuffix(".jsp");
-        resolver.setViewClass(JstlView.class);
-
-        return resolver;
+    @Override
+    public void configureViewResolvers(ViewResolverRegistry registry) {
+        registry.jsp().prefix("/pages/").suffix(".jsp");
     }
 }
