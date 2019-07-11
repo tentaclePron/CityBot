@@ -18,6 +18,7 @@ public class Bot extends TelegramLongPollingBot {
     private CityService cityService;
 
     public static void main(String[] args) {
+        System.out.println("psvm bot");
         ApiContextInitializer.init();
         TelegramBotsApi botsApi = new TelegramBotsApi();
         try {
@@ -30,6 +31,7 @@ public class Bot extends TelegramLongPollingBot {
 
     @Override
     public void onUpdateReceived(Update update) {
+        System.out.println("bot on update");
         String message = update.getMessage().getText();
         City city = cityService.getByName(message);
         String response = city.getText();

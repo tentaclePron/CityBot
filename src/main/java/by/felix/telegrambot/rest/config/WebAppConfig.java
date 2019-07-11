@@ -9,11 +9,12 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
 @EnableWebMvc
-@ComponentScan(basePackages = "by.felix.telegrambot")
+@ComponentScan
 public class WebAppConfig implements WebMvcConfigurer {
 
     @Override
     public void configureViewResolvers(ViewResolverRegistry registry) {
+        System.out.println("registered");
         registry.jsp().prefix("/pages/").suffix(".jsp");
     }
 }
