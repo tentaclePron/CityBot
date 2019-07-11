@@ -3,6 +3,7 @@ package by.felix.telegrambot.bot;
 import by.felix.telegrambot.database.entity.City;
 import by.felix.telegrambot.database.service.CityService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.ApiContextInitializer;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.TelegramBotsApi;
@@ -11,7 +12,7 @@ import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiRequestException;
 
-
+@Component
 public class Bot extends TelegramLongPollingBot {
 
     @Autowired
@@ -31,10 +32,13 @@ public class Bot extends TelegramLongPollingBot {
 
     @Override
     public void onUpdateReceived(Update update) {
+        String response = new String();
         System.out.println("bot on update");
         String message = update.getMessage().getText();
         City city = cityService.getByName(message);
-        String response = city.getText();
+
+        response = message;
+
         sendMsg(update.getMessage().getChatId().toString(), response);
     }
 

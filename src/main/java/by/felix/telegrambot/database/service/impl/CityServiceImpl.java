@@ -25,7 +25,7 @@ public class CityServiceImpl implements CityService {
 
     @Override
     public City getByName(String name) {
-        return repository.findByName(name);
+        return repository.findByName(name).orElse(new City());
     }
 
     public City getById(long id){
