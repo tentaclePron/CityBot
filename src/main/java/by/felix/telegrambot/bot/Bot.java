@@ -4,13 +4,10 @@ import by.felix.telegrambot.database.entity.City;
 import by.felix.telegrambot.database.service.CityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.telegram.telegrambots.ApiContextInitializer;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
-import org.telegram.telegrambots.meta.TelegramBotsApi;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
-import org.telegram.telegrambots.meta.exceptions.TelegramApiRequestException;
 
 @Component
 public class Bot extends TelegramLongPollingBot {
@@ -18,26 +15,18 @@ public class Bot extends TelegramLongPollingBot {
     @Autowired
     private CityService cityService;
 
-    public static void main(String[] args) {
-        System.out.println("psvm bot");
-        ApiContextInitializer.init();
-        TelegramBotsApi botsApi = new TelegramBotsApi();
-        try {
-            botsApi.registerBot(new Bot());
-        }
-        catch (TelegramApiRequestException e){
-            e.printStackTrace();
-        }
-    }
 
     @Override
     public void onUpdateReceived(Update update) {
-        String response = new String();
-        System.out.println("bot on update");
+        String response;
         String message = update.getMessage().getText();
         City city = cityService.getByName(message);
-
-        response = message;
+        if (city.getText()==null){
+            response="я не знаю такогго города";
+        }
+         else {
+            response = city.getText();
+        }
 
         sendMsg(update.getMessage().getChatId().toString(), response);
     }
